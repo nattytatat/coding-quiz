@@ -24,8 +24,12 @@ function startGame() {
 function displayQuestion(theQuestion) {
     // print the question to the h2 html tag
     questionTitle.innerHTML = quizQuestions[theQuestion].question;
-    for (i = 0; i < quizQuestions[theQuestion].choices.length; i++ ) {
-            var choice = quizQuestions[theQuestion].choices;
+    var choices = quizQuestions[theQuestion].choices;
+
+    for (i = 0; i < choices.length; i++ ) {
+            var choice = choices[i];
+            // theChoices.innerHTML  += choices[i];
+            // // var choice = theChoices = innerHTML = choices[i];
             var li = document.createElement("li");
             li.textContent = choice;
             theChoices.appendChild(li)
