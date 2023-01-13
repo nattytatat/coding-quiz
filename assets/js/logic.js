@@ -22,8 +22,17 @@ function startGame() {
 
 // to display each question in the array using for loop
 function displayQuestion(theQuestion) {
+    // print the question to the h2 html tag
     questionTitle.innerHTML = quizQuestions[theQuestion].question;
-}
+    for (i = 0; i < quizQuestions[theQuestion].choices.length; i++ ) {
+            var choice = quizQuestions[theQuestion].choices;
+            var li = document.createElement("li");
+            li.textContent = choice;
+            theChoices.appendChild(li)
+        }
+    }
+
+
 
 
 // create an event listener for the button to start the game
