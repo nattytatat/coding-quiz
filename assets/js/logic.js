@@ -6,27 +6,23 @@ var questionSection = document.querySelector(".hide");
 var questionTitle = document.querySelector("#question-title");
 var theChoices = document.querySelector("#choices")
 
-//time left
 var timeLeft = 60;
-// keep up to date with the score
 var finalScore = 0;
-// keep an eye on the current question to ensure starts at the first and the game ends on the last
 var currentQuestion = 0;
 
-// run the game
-function theGame() {
-    console.log("button has been clicked");
-
-    // loop through array questions and choices
-    for (i = 0; i < quizQuestions.length; i++) {
-        alert(quizQuestions[i].question);
-        questionTitle.innerText = quizQuestions[i].question;
-
-    }
+// start the game
+function startGame() {
 
     // add timer
 
-    // stop game when questions end
+    //Display the first question when starting game, calling the function below to run through the question array
+    var theQuestion = 0;
+    displayQuestion(theQuestion);
+}
+
+// to display each question in the array using for loop
+function displayQuestion(theQuestion) {
+    questionTitle.innerHTML = quizQuestions[theQuestion].question;
 }
 
 
@@ -38,7 +34,7 @@ startBtn.addEventListener("click", function(event) {
     startScreen.style.display = "none";    
     questionSection.classList.remove("hide");
 
-    theGame();
+    startGame();
     
 
 });
