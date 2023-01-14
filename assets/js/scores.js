@@ -17,5 +17,5 @@ if (playerScores !== null) {
 }
 clearList.addEventListener("click", function () {
     localStorage.clear();
-    clearList.innerHTML = "";
+    highScores.classList.add("hide");
 });

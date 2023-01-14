@@ -1,5 +1,6 @@
 // Place where score will be displayed
 var startBtn = document.querySelector("#start");
+var theClock = document.querySelector("#time");
 var startScreen = document.querySelector("#start-screen");
 var questionSection = document.querySelector(".hide");
 var feedbackSection = document.querySelector("#feedback");
@@ -11,11 +12,24 @@ var submitBtn = document.querySelector("#submit");
 
 var timeLeft = 60;
 var currentQuestion = 0;
+// by declaring this variable outside the function I can clear the timer when all questions are iterated
+var timer;
 
 // start the game
 function startGame() {
 
-    // add timer
+    timer = setInterval(function(){
+        //countdown by one
+        timeLeft--;
+        theClock.innerHTML = timeLeft;
+        //if time remaining is more than 1, show seconds remaining
+        if (timeLeft <= 0 ) {
+            
+            clearInterval(timer);
+            endGame();
+        }
+
+    }, 1000);
 
     //Display the first question when starting game, calling the function below to run through the question array
     var theQuestion = 0;
@@ -27,7 +41,7 @@ function displayQuestion(theQuestion) {
     // print the question to the h2 html tag
     questionTitle.innerHTML = quizQuestions[theQuestion].question;
     var choices = quizQuestions[theQuestion].choices;
-    var answer = quizQuestions[theQuestion].answer;
+    // var answer = quizQuestions[theQuestion].answer;
 
     for (i = 0; i < choices.length; i++) {
         var choice = choices[i];
@@ -63,6 +77,7 @@ function answerCheck(theQuestion, choice) {
     } else {
         feedbackSection.classList.remove("hide")
         feedbackSection.innerHTML = "I'm afraid that is incorrect";
+        timeLeft -= 5;
         // alert("Wrong!");
     }
 }
@@ -76,7 +91,8 @@ function nextQuestion(theQuestion) {
     if (theQuestion < quizQuestions.length) {
         displayQuestion(theQuestion);
     } else {
-        alert("end of the game!");
+        // alert("end of the game!");
+        clearInterval(timer);
         endGame();
     }
 }
@@ -88,6 +104,8 @@ function endGame() {
     feedbackSection.classList.add("hide");
     // timeleft is the starting score, this adds the score to the HTML at the end of the game
     finalScore.textContent = timeLeft;
+    // update clock when game ends due to questions completing
+    theClock.innerHTML = timeLeft;
 }
 
 
@@ -98,8 +116,8 @@ submitBtn.addEventListener("click", function (event) {
     var playerName = playerEntered.toUpperCase();
 
     // check if initials are entered
-    if (playerName === "") {
-        alert("Please enter your initials");
+    if (playerName === "" || playerName.length > 3) {
+        alert("Please enter your initials, max of three");
     } else {
         //create object
         var playerData = {
