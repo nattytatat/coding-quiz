@@ -10,7 +10,7 @@ var finalScore = document.querySelector("#final-score");
 var submitBtn = document.querySelector("#submit");
 
 var timeLeft = 60;
-finalScore = 0;
+finalScore = 24;
 var currentQuestion = 0;
 
 // start the game
@@ -93,9 +93,20 @@ function endGame() {
 
 // event listener button that stores scores and goes to the highscores page
 submitBtn.addEventListener("click", function(event) {
+    // players name from input
     var playerName = document.querySelector("#initials").value;
-    localStorage.setItem("playerName", playerName);
-    localStorage.setItem("playerScore", finalScore);
+    var playerScore = finalScore;
+
+    // create object to store the results from above together
+    var playerData = { name: playerName, score: playerScore};
+    // convert the object to a string
+    var convertData = JSON.stringify(playerData);
+    // Store the JSON string in localStorage
+    localStorage.setItem("playerData", convertData);
+    // Retrive the data from localStorage
+    var retrievedData = localStorage.getItem("playerData");
+    // Parse the JSON string into an object
+    var retrievedDataObject = JSON.parse(retrievedData);
 });
 
 // create an event listener for the button to start the game
