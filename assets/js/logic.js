@@ -93,8 +93,9 @@ function endGame() {
 
 // event listener button that stores scores and goes to the highscores page
 submitBtn.addEventListener("click", function (event) {
-    // players name from input
-    var playerName = document.querySelector("#initials").value;
+    // players name from input and return as uppercase
+    var playerEntered = document.querySelector("#initials").value;
+    var playerName = playerEntered.toUpperCase();
 
     // check if initials are entered
     if (playerName === "") {
@@ -108,7 +109,7 @@ submitBtn.addEventListener("click", function (event) {
 
         // check other scores in localstorage
         var playerScores = localStorage.getItem("playerScores");
-        // if no player scores, variable is an empty array
+        // if no value, variable is an empty array
         if (playerScores === null) {
             playerScores = [];
             //then we can parse all previous scores
