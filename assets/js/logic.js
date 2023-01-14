@@ -10,7 +10,6 @@ var finalScore = document.querySelector("#final-score");
 var submitBtn = document.querySelector("#submit");
 
 var timeLeft = 60;
-finalScore = 24;
 var currentQuestion = 0;
 
 // start the game
@@ -87,7 +86,8 @@ function endGame() {
     questionSection.classList.add("hide");
     endScreen.classList.remove("hide");
     feedbackSection.classList.add("hide");
-    finalScore.innerHTML = timeLeft;
+    // timeleft is the starting score, this adds the score to the HTML at the end of the game
+    finalScore.textContent = timeLeft;
 }
 
 
@@ -95,18 +95,28 @@ function endGame() {
 submitBtn.addEventListener("click", function(event) {
     // players name from input
     var playerName = document.querySelector("#initials").value;
-    var playerScore = finalScore;
 
-    // create object to store the results from above together
-    var playerData = { name: playerName, score: playerScore};
-    // convert the object to a string
-    var convertData = JSON.stringify(playerData);
-    // Store the JSON string in localStorage
-    localStorage.setItem("playerData", convertData);
-    // Retrive the data from localStorage
-    var retrievedData = localStorage.getItem("playerData");
-    // Parse the JSON string into an object
-    var retrievedDataObject = JSON.parse(retrievedData);
+    // check if initials are entered
+    if (playerName === "") {
+        alert("Please enter your initials");
+    } else {
+        //create object
+        var playerData = {
+            name: playerName,
+            score: timeLeft
+        }
+        
+    window.location.replace("./HighScores.html");
+    }
+
+    // // convert the object to a string
+    // var convertData = JSON.stringify(playerData);
+    // // Store the JSON string in localStorage
+    // localStorage.setItem("playerData", convertData);
+    // // Retrive the data from localStorage
+    // var retrievedData = localStorage.getItem("playerData");
+    // // Parse the JSON string into an object
+    // var retrievedDataObject = JSON.parse(retrievedData);
 });
 
 // create an event listener for the button to start the game
