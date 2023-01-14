@@ -35,6 +35,10 @@ button:hover {
   background-color: #8570a5;
 }
 
+button#submit {
+  padding: 5px 25px;
+}
+
 .choices button {
   display: block;
   padding: 20px 35px;
