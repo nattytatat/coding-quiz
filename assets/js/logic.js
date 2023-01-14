@@ -1,14 +1,16 @@
 // Place where score will be displayed
-var finalScore = document.querySelector("#final-score");
 var startBtn = document.querySelector("#start");
 var startScreen = document.querySelector("#start-screen");
 var questionSection = document.querySelector(".hide");
 var feedbackSection = document.querySelector("#feedback");
 var questionTitle = document.querySelector("#question-title");
 var theChoices = document.querySelector("#choices");
+var endScreen = document.querySelector("#end-screen");
+var finalScore = document.querySelector("#final-score");
+var submitBtn = document.querySelector("#submit");
 
 var timeLeft = 60;
-var finalScore = 0;
+finalScore = 0;
 var currentQuestion = 0;
 
 // start the game
@@ -66,19 +68,35 @@ function answerCheck(theQuestion, choice) {
     }
 }
 
-//function to run next question in array
-function nextQuestion() {
+//function to run next question in array - remember to run the argument or will cause error!
+function nextQuestion(theQuestion) {
     theQuestion++;
+    //clear previous questions
+    theChoices.innerHTML = "";
     // loop to check all questions are run and end
     if (theQuestion < quizQuestions.length) {
         displayQuestion(theQuestion);
     } else {
         alert("end of the game!");
-        return;
+        endGame();
     }
 }
 
+// when game ends, display score
+function endGame() {
+    questionSection.classList.add("hide");
+    endScreen.classList.remove("hide");
+    feedbackSection.classList.add("hide");
+    finalScore.innerHTML = timeLeft;
+}
 
+
+// event listener button that stores scores and goes to the highscores page
+submitBtn.addEventListener("click", function(event) {
+    var playerName = document.querySelector("#initials").value;
+    localStorage.setItem("playerName", playerName);
+    localStorage.setItem("playerScore", finalScore);
+});
 
 // create an event listener for the button to start the game
 startBtn.addEventListener("click", function (event) {
