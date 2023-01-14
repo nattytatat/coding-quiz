@@ -43,7 +43,7 @@ function displayQuestion(theQuestion) {
     var buttonAnswers = document.querySelectorAll("button.answer-button");
 
     for (var i = 0; i < buttonAnswers.length; i++) {
-        buttonAnswers[i].addEventListener("click", function() {
+        buttonAnswers[i].addEventListener("click", function () {
             //checks the answer printed in the button
             answerCheck(theQuestion, this.innerHTML);
             // go to next question - remember to run the argument
@@ -92,7 +92,7 @@ function endGame() {
 
 
 // event listener button that stores scores and goes to the highscores page
-submitBtn.addEventListener("click", function(event) {
+submitBtn.addEventListener("click", function (event) {
     // players name from input
     var playerName = document.querySelector("#initials").value;
 
@@ -105,18 +105,26 @@ submitBtn.addEventListener("click", function(event) {
             name: playerName,
             score: timeLeft
         }
-        
-    window.location.replace("./HighScores.html");
+
+        // check other scores in localstorage
+        var playerScores = localStorage.getItem("playerScores");
+        // if no player scores, variable is an empty array
+        if (playerScores === null) {
+            playerScores = [];
+            //then we can parse all previous scores
+        } else {
+            playerScores = JSON.parse(playerScores);
+        }
+
+        // push all player scores to the player Data object
+        playerScores.push(playerData);
+        var latestScore = JSON.stringify(playerScores);
+        localStorage.setItem("playerScores", latestScore);
+
+        // go to page that displays score list
+        window.location.replace("./HighScores.html");
     }
 
-    // // convert the object to a string
-    // var convertData = JSON.stringify(playerData);
-    // // Store the JSON string in localStorage
-    // localStorage.setItem("playerData", convertData);
-    // // Retrive the data from localStorage
-    // var retrievedData = localStorage.getItem("playerData");
-    // // Parse the JSON string into an object
-    // var retrievedDataObject = JSON.parse(retrievedData);
 });
 
 // create an event listener for the button to start the game
