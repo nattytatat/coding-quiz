@@ -141,7 +141,7 @@ submitBtn.addEventListener("click", function (event) {
         localStorage.setItem("playerScores", latestScore);
 
         // go to page that displays score list
-        window.location.href = "/highscores.html";
+        window.location.href = "/coding-quiz/highscores.html";
     }
 
 });
