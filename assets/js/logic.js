@@ -33,30 +33,33 @@ function displayQuestion(theQuestion) {
         // create and append the choices as buttons to the HTML
         var btn = document.createElement("button");
         btn.textContent = choice;
-        theChoices.appendChild(btn)
+        //add a class to generated buttons 
+        btn.classList.add("answer-button");
+        theChoices.appendChild(btn);
     }
 
-    // Will need event listeners to make sure answer that is clicked is correct - needs to run inside the function as code is printed by for loop?
+    // Add event listeners to the generated buttons
+    var buttonAnswers = document.querySelectorAll("button.answer-button");
 
-    document.getElementById("answer1").addEventListener("click", function () {
-        checkAnswer(questionIndex, choices[0]);
-    });
-    document.getElementById("answer2").addEventListener("click", function () {
-        checkAnswer(questionIndex, choices[1]);
-    });
-    document.getElementById("answer3").addEventListener("click", function () {
-        checkAnswer(questionIndex, choices[2]);
-    });
+    for (var i = 0; i < buttonAnswers.length; i++) {
+        buttonAnswers[i].addEventListener("click", function() {
+            //checks the answer printed in the button
+            answerCheck(theQuestion, this.innerHTML);
+            // go to next question
+        });
+    }
 
 }
 
 // function to check answer - add the Question and choice arguments to use in the function
 function answerCheck(theQuestion, choice) {
     // check answer and print result
-    if (choice === quizQuestions[theQuestion].answer) {
-        feedbackSection.innerHTML = "That is correct!";
+    if (choice === quizQuestions[theQuestion].correct) {
+        // feedbackSection.innerHTML = "That is correct!";
+        alert("Correct!");
     } else {
-        feedbackSection.innerHTML = "I'm afraid that is incorrect";
+        // feedbackSection.innerHTML = "I'm afraid that is incorrect";
+        alert("Wrong!");
     }
 }
 
