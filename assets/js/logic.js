@@ -45,7 +45,8 @@ function displayQuestion(theQuestion) {
         buttonAnswers[i].addEventListener("click", function() {
             //checks the answer printed in the button
             answerCheck(theQuestion, this.innerHTML);
-            // go to next question
+            // go to next question - remember to run the argument
+            nextQuestion(theQuestion);
         });
     }
 
@@ -55,16 +56,27 @@ function displayQuestion(theQuestion) {
 function answerCheck(theQuestion, choice) {
     // check answer and print result
     if (choice === quizQuestions[theQuestion].correct) {
-        // feedbackSection.innerHTML = "That is correct!";
-        alert("Correct!");
+        feedbackSection.classList.remove("hide")
+        feedbackSection.innerHTML = "That is correct!";
+        // alert("Correct!");
     } else {
-        // feedbackSection.innerHTML = "I'm afraid that is incorrect";
-        alert("Wrong!");
+        feedbackSection.classList.remove("hide")
+        feedbackSection.innerHTML = "I'm afraid that is incorrect";
+        // alert("Wrong!");
     }
 }
 
 //function to run next question in array
-
+function nextQuestion() {
+    theQuestion++;
+    // loop to check all questions are run and end
+    if (theQuestion < quizQuestions.length) {
+        displayQuestion(theQuestion);
+    } else {
+        alert("end of the game!");
+        return;
+    }
+}
 
 
 
